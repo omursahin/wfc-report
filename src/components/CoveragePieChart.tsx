@@ -1,14 +1,14 @@
 import {Cell, Label, Pie, PieChart, ResponsiveContainer} from "recharts";
 import type React from "react";
 
-interface CoverageData {
+interface ICoverageData {
     covered: number;
     total: number;
     color: string;
     label: string;
 }
 
-export const CoveragePieChart: React.FC<CoverageData> = ({covered, total, color, label}) => {
+export const CoveragePieChart: React.FC<ICoverageData> = ({covered, total, color, label}) => {
     const data = [
         {name: 'Covered', value: covered, color: color},
         {name: 'Total', value: total-covered, color: "#FFF2DB"},

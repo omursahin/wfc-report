@@ -1,9 +1,9 @@
 import {Card} from "@/components/ui/card.tsx";
 import {ShieldAlert} from "lucide-react";
 import type React from "react";
-import {FaultsType} from "@/Types.tsx";
+import {IFaultsType} from "@/Types.tsx";
 
-export const Faults: React.FC<FaultsType> = ({total_number, found_faults}) => {
+export const Faults: React.FC<IFaultsType> = ({total_number, found_faults}) => {
     const faultCounts = new Map();
 
     found_faults.forEach(fault => {

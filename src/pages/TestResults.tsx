@@ -3,11 +3,11 @@ import type React from "react";
 import {Badge} from "@/components/ui/badge.tsx";
 import {CodeBlock} from "@/components/CodeBlock.tsx";
 
-interface Props {
+interface IProps {
     test_case_name: string;
 }
 
-export const TestResults: React.FC<Props> = ({test_case_name}) => {
+export const TestResults: React.FC<IProps> = ({test_case_name}) => {
     const files = {
         "faults.py": `# Calls:
 # (200) GET:/app/api/assignments

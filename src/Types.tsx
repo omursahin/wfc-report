@@ -1,36 +1,36 @@
-export interface FaultsType {
+export interface IFaultsType {
     total_number: number;
-    found_faults: Array<FoundFaultsType>
+    found_faults: Array<IFoundFaultsType>
 }
 
-export interface FoundFaultsType {
+export interface IFoundFaultsType {
     operation_id: string;
     test_case_id: string;
-    fault_categories: Array<FaultCategoriesType>
+    fault_categories: Array<IFaultCategoriesType>
 }
 
-export interface FaultCategoriesType {
+export interface IFaultCategoriesType {
     code: number;
     context: string;
 }
 
-export interface ProblemDetailsType {
-    rest: RestType
+export interface IProblemDetailsType {
+    rest: IRestType
 }
 
-export interface RestType {
+export interface IRestType {
     total_http_calls: number;
     endpoint_ids: string[];
-    covered_http_status: Array<CoveredHttpStatusType>
+    covered_http_status: Array<ICoveredHttpStatusType>
 }
 
-export interface CoveredHttpStatusType {
+export interface ICoveredHttpStatusType {
     endpoint_id: string;
     test_case_id: string;
     http_status: number[]
 }
 
-export interface TestCaseType {
+export interface ITestCaseType {
     id: string;
     file_path: string;
     name: string;
@@ -38,14 +38,14 @@ export interface TestCaseType {
     end_line: number;
 }
 
-export interface Types {
+export interface ITypes {
     schema_version: string;
     tool_name: string;
     tool_version: string;
     creation_time: number;
-    faults: FaultsType;
-    problem_details: ProblemDetailsType;
+    faults: IFaultsType;
+    problem_details: IProblemDetailsType;
     total_tests: number;
     test_file_paths: Array<string>;
-    test_cases: Array<TestCaseType>;
+    test_cases: Array<ITestCaseType>;
 }

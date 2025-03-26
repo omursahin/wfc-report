@@ -2,15 +2,15 @@ import type React from "react";
 import {RestReports} from "@/components/RestReports.tsx";
 import {GeneratedTests} from "@/components/GeneratedTests.tsx";
 import {Faults} from "@/components/Faults.tsx";
-import {FaultsType, RestType, TestCaseType} from "@/Types.tsx";
+import {IFaultsType, IRestType, ITestCaseType} from "@/Types.tsx";
 
-interface OverviewType{
-    rest: RestType
-    test_cases: Array<TestCaseType>,
+interface IOverviewType{
+    rest: IRestType
+    test_cases: Array<ITestCaseType>,
     test_file_paths: Array<string>,
-    faults: FaultsType
+    faults: IFaultsType
 }
-export const Overview: React.FC<OverviewType> = ({rest, test_cases, test_file_paths, faults}) => {
+export const Overview: React.FC<IOverviewType> = ({rest, test_cases, test_file_paths, faults}) => {
     return (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Left Panel */}

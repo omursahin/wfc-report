@@ -6,14 +6,14 @@ import {Header} from "@/components/Header.tsx";
 import {Overview} from "@/pages/Overview.tsx";
 import {Endpoints} from "@/pages/Endpoints.tsx";
 import {TestResults} from "@/pages/TestResults.tsx";
-import {Types} from "@/Types.tsx";
+import {ITypes} from "@/Types.tsx";
 import {ScrollArea, ScrollBar} from "@/components/ui/scroll-area.tsx";
 
 interface ITestTabs {
     value: string;
 }
 
-export const Dashboard: React.FC<Types> = (data) => {
+export const Dashboard: React.FC<ITypes> = (data) => {
     const [activeTab, setActiveTab] = useState("overview")
 
     const [testTabs, setTestTabs] = useState<Array<ITestTabs>>([]);

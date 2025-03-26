@@ -3,10 +3,10 @@ import {Accordion} from "@/components/ui/accordion.tsx";
 import {EndpointAccordion} from "@/components/EndpointAccordion.tsx";
 
 
-interface Props {
+interface IProps {
     addTestTab: (value: string, event: React.MouseEvent<HTMLElement>) => void;
 }
-export const Endpoints: React.FC<Props> = ({addTestTab}) => {
+export const Endpoints: React.FC<IProps> = ({addTestTab}) => {
 
     //TODO - here will be changed
     const data = [

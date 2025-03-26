@@ -1,10 +1,10 @@
 import './App.css'
 import {Dashboard} from "@/components/Dashboard.tsx";
-import {Types} from "@/Types.tsx";
+import {ITypes} from "@/Types.tsx";
 
 function App() {
 
-  const data: Types = {
+  const data: ITypes = {
       "schema_version": "0.0.1",
       "tool_name": "EvoMaster",
       "tool_version": "unknown",

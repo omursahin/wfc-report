@@ -1,9 +1,9 @@
 import {Card} from "@/components/ui/card.tsx";
 import type React from "react";
 import {CoveragePieChart} from "@/components/CoveragePieChart.tsx";
-import {RestType} from "@/Types.tsx";
+import {IRestType} from "@/Types.tsx";
 
-export const RestReports: React.FC<RestType> = ({total_http_calls, covered_http_status, endpoint_ids}) => {
+export const RestReports: React.FC<IRestType> = ({total_http_calls, covered_http_status, endpoint_ids}) => {
     const total = endpoint_ids.length;
     const calculateNumberOfCovered = (start: number, end: number) => {
         return covered_http_status.reduce((count, item) => {

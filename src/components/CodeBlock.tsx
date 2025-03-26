@@ -1,12 +1,12 @@
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { dracula } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
-interface CodeEditorProps {
+interface ICodeEditorProps {
     content: string
     language: string
 }
 
-export function CodeBlock({ content, language }: CodeEditorProps) {
+export function CodeBlock({ content, language }: ICodeEditorProps) {
 
     return (
         <SyntaxHighlighter

@@ -4,20 +4,20 @@ import React, {useState} from "react";
 import {TestCases} from "@/components/TestCases.tsx";
 import {getColor} from "@/utils.tsx";
 
-interface StatusType {
+interface IStatusType {
     code: number | string;
     test_cases: string[];
 }
 
-export interface EndpointAccordionProps {
+export interface IEndpointAccordionProps {
     endpoint: string;
     value: string;
-    status_codes: StatusType[];
-    faults: StatusType[];
+    status_codes: IStatusType[];
+    faults: IStatusType[];
     addTestTab: (value: string, event: React.MouseEvent<HTMLElement>) => void;
 }
 
-export const EndpointAccordion: React.FC<EndpointAccordionProps> = ({
+export const EndpointAccordion: React.FC<IEndpointAccordionProps> = ({
                                                                         endpoint,
                                                                         value,
                                                                         status_codes,

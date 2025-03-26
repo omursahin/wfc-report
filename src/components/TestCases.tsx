@@ -3,14 +3,14 @@ import type React from "react";
 import {getColor} from "@/utils.tsx";
 import {Tooltip, TooltipContent, TooltipProvider, TooltipTrigger} from "@/components/ui/tooltip.tsx";
 
-interface TestCaseProps {
+interface ITestCaseProps {
     code: string | number;
     color: string;
     test_cases: Array<string>;
     addTestTab: (value: string, event: React.MouseEvent<HTMLElement>) => void;
 }
 
-export const TestCases: React.FC<TestCaseProps> = ({code, test_cases, addTestTab}) => {
+export const TestCases: React.FC<ITestCaseProps> = ({code, test_cases, addTestTab}) => {
 
     return (
         <>
