@@ -1,145 +1,79 @@
 import type React from "react";
 import {Accordion} from "@/components/ui/accordion.tsx";
 import {EndpointAccordion} from "@/components/EndpointAccordion.tsx";
+import {ITypes} from "@/Types.tsx";
 
 
 interface IProps {
     addTestTab: (value: string, event: React.MouseEvent<HTMLElement>) => void;
+    data: ITypes
 }
-export const Endpoints: React.FC<IProps> = ({addTestTab}) => {
 
-    //TODO - here will be changed
-    const data = [
-        {
-            "endpoint": "POST:/users",
-            "http_status_codes": [
-                {
-                    code: 200,
-                    test_cases: ["TC1", "TC2", "TC3"]
-                },
-                {
-                    code: 201,
-                    test_cases: ["TC4", "TC5", "TC6"]
-                },
-                {
-                    code: 400,
-                    test_cases: ["TC1", "TC7", "TC9"]
-                },
-                {
-                    code: 500,
-                    test_cases: ["TC10", "TC11",]
+export const Endpoints: React.FC<IProps> = ({addTestTab, data}) => {
+
+    const transformJson = (original: ITypes) => {
+
+        const endpointMap = new Map();
+
+        original.faults.found_faults.forEach(fault => {
+            if (!endpointMap.has(fault.operation_id)) {
+                endpointMap.set(fault.operation_id, {
+                    endpoint: fault.operation_id,
+                    http_status_codes: [],
+                    faults: []
+                });
+            }
+
+            const endpointData = endpointMap.get(fault.operation_id);
+
+            fault.fault_categories.forEach(faultCat => {
+                let existingFault = endpointData.faults.find((f: { code: number; }) => f.code === faultCat.code);
+                if (!existingFault) {
+                    existingFault = {code: faultCat.code, test_cases: []};
+                    endpointData.faults.push(existingFault);
                 }
-            ],
-            "faults": [
-                {
-                    code: "F1",
-                    test_cases: ["TC18", "TC20", "TC13"]
-                },
-                {
-                    code: "F2",
-                    test_cases: ["TC9", "TC8", "TC16"]
-                },
-                {
-                    code: "F3",
-                    test_cases: ["TC15", "TC16", "TC17"]
-                },
-                {
-                    code: "F4",
-                    test_cases: ["TC14", "TC22",]
+                if (!existingFault.test_cases.includes(fault.test_case_id)) {
+                    existingFault.test_cases.push(fault.test_case_id);
                 }
-            ]
-        },
-        {
-            "endpoint": "GET:/users",
-            "http_status_codes": [
-                {
-                    code: 200,
-                    test_cases: ["TC23", "TC24", "TC25"]
-                },
-                {
-                    code: 201,
-                    test_cases: ["TC26", "TC27", "TC28"]
+            });
+        });
+
+        original.problem_details.rest.covered_http_status.forEach(status => {
+            if (!endpointMap.has(status.endpoint_id)) {
+                endpointMap.set(status.endpoint_id, {
+                    endpoint: status.endpoint_id,
+                    http_status_codes: [],
+                    faults: []
+                });
+            }
+
+            const endpointData = endpointMap.get(status.endpoint_id);
+
+            status.http_status.forEach(code => {
+                let existingStatus = endpointData.http_status_codes.find((s: { code: number; }) => s.code === code);
+                if (!existingStatus) {
+                    existingStatus = {code, test_cases: []};
+                    endpointData.http_status_codes.push(existingStatus);
                 }
-            ],
-            "faults": [
-                {
-                    code: "F1",
-                    test_cases: ["TC29", "TC30", "TC31"]
-                },
-                {
-                    code: "F2",
-                    test_cases: ["TC32", "TC33"]
+                if (!existingStatus.test_cases.includes(status.test_case_id)) {
+                    existingStatus.test_cases.push(status.test_case_id);
                 }
-            ]
-        },
-        {
-            "endpoint": "POST:/users3",
-            "http_status_codes": [
-                {
-                    code: 200,
-                    test_cases: ["TC34", "TC35", "TC36"]
-                },
-                {
-                    code: 500,
-                    test_cases: ["TC37", "TC38",]
-                }
-            ],
-            "faults": [
-                {
-                    code: "F2",
-                    test_cases: ["TC39", "TC40", "TC41"]
-                }
-            ]
-        },
-        {
-            "endpoint": "POST:/users4",
-            "http_status_codes": [
-                {
-                    code: 200,
-                    test_cases: ["TC42", "TC43", "TC44"]
-                }
-            ],
-            "faults": [
-                {
-                    code: "F1",
-                    test_cases: ["TC45", "TC46", "TC47"]
-                }
-            ]
-        },
-        {
-            "endpoint": "POST:/users5",
-            "http_status_codes": [
-                {
-                    code: 200,
-                    test_cases: ["TC48", "TC49", "TC50"]
-                }
-            ],
-            "faults": []
-        },
-        {
-            "endpoint": "POST:/users6",
-            "http_status_codes": [],
-            "faults": [
-                {
-                    code: "F2",
-                    test_cases: ["TC51", "TC52", "TC53"]
-                }
-            ]
-        },
-        {
-            "endpoint": "POST:/users7",
-            "http_status_codes": [],
-            "faults": []
-        }
-    ];
+            });
+        });
+
+        return Array.from(endpointMap.values());
+    }
+
+    const transformed = transformJson(data);
 
     return (
         <div className="border-2 border-black p-6 rounded-none w-[80%] mx-auto">
             <Accordion type="single" collapsible className="w-full">
                 {
-                    data.map((item, index) => (
+                    transformed.map((item, index) => (
                         <EndpointAccordion key={index} value={`_${index}`} endpoint={item.endpoint}
-                                           status_codes={item.http_status_codes} faults={item.faults} addTestTab={addTestTab}/>
+                                           status_codes={item.http_status_codes} faults={item.faults}
+                                           addTestTab={addTestTab}/>
                     ))
                 }
             </Accordion>

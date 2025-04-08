@@ -26,6 +26,7 @@ export const EndpointAccordion: React.FC<IEndpointAccordionProps> = ({
                                                                     }) => {
 
     const [selectedCode, setSelectedCode] = useState<number | string>(0);
+    const [isFault, setIsFault] = useState(false);
 
     const selectedTestCases = status_codes.find((code) => code.code === selectedCode)?.test_cases || [];
     const selectedFaultTestCases = faults.find((code) => code.code === selectedCode)?.test_cases || [];
@@ -43,8 +44,11 @@ export const EndpointAccordion: React.FC<IEndpointAccordionProps> = ({
                     <div className="flex flex-wrap gap-2">
                         {
                             status_codes.map((code, index) => (
-                                <Badge key={index} onClick={() => setSelectedCode(code.code)}
-                                       className={`${getColor(code.code, "bg")} hover:bg-green-600 cursor-pointer text-white px-4 py-2 text-base font-bold border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]`}>
+                                <Badge key={index} onClick={() => {
+                                    setSelectedCode(code.code);
+                                    setIsFault(false);
+                                }}
+                                       className={`${getColor(code.code, "bg", false)} hover:bg-green-600 cursor-pointer text-white px-4 py-2 text-base font-bold border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]`}>
                                     {code.code}
                                 </Badge>
                             ))
@@ -61,7 +65,10 @@ export const EndpointAccordion: React.FC<IEndpointAccordionProps> = ({
                     <div className="flex flex-wrap gap-2">
                         {
                             faults.map((fault, index) => (
-                                <Badge key={index} onClick={() => setSelectedCode(fault.code)}
+                                <Badge key={index} onClick={() => {
+                                    setSelectedCode(fault.code)
+                                    setIsFault(true);
+                                }}
                                        className={`${faultColors[index % faultColors.length]} hover:bg-red-400 cursor-pointer text-white px-4 py-2 text-base font-bold border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]`}>
                                     {fault.code}
                                 </Badge>
@@ -77,8 +84,8 @@ export const EndpointAccordion: React.FC<IEndpointAccordionProps> = ({
                 {
                     (selectedTestCases.length > 0 || selectedFaultTestCases.length > 0) &&
                     <div className="mt-6">
-                        <TestCases addTestTab={addTestTab} color={"text-green-500"} code={selectedCode}
-                                   test_cases={selectedTestCases.length > 0 ? selectedTestCases : selectedFaultTestCases}/>
+                        <TestCases addTestTab={addTestTab} isFault={isFault} code={selectedCode}
+                                   test_cases={selectedTestCases.length > 0 && !isFault ? selectedTestCases : selectedFaultTestCases}/>
                     </div>
                 }
             </AccordionContent>

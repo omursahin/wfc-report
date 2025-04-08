@@ -5,17 +5,17 @@ import {Tooltip, TooltipContent, TooltipProvider, TooltipTrigger} from "@/compon
 
 interface ITestCaseProps {
     code: string | number;
-    color: string;
     test_cases: Array<string>;
     addTestTab: (value: string, event: React.MouseEvent<HTMLElement>) => void;
+    isFault: boolean;
 }
 
-export const TestCases: React.FC<ITestCaseProps> = ({code, test_cases, addTestTab}) => {
+export const TestCases: React.FC<ITestCaseProps> = ({code, test_cases, addTestTab, isFault}) => {
 
     return (
         <>
             <div className="border-t border-black my-2"></div>
-            <div className={`font-bold cursor-default text-lg mb-2 mt-4 ${getColor(code, "text")}`}>{code}</div>
+            <div className={`font-bold cursor-default text-lg mb-2 mt-4 ${getColor(code, "text", isFault)}`}>{code}</div>
             <Card className="border-2 border-black p-0 rounded-none">
                 <div className="max-h-[300px] overflow-auto">
                     {

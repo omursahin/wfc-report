@@ -105,7 +105,7 @@ export const Dashboard: React.FC<ITypes> = (data) => {
                 </TabsContent>
 
                 <TabsContent value="endpoints">
-                    <Endpoints addTestTab={addTestTab}/>
+                    <Endpoints addTestTab={addTestTab} data={data}/>
                 </TabsContent>
 
                 {

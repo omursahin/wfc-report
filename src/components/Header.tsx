@@ -1,7 +1,7 @@
 import type React from "react";
 
 interface IHeaderProps {
-    date: number;
+    date: string;
     tool_name_version: string;
     schema_version: string;
 }
