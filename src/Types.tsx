@@ -61,3 +61,13 @@ export interface ITypes {
     test_cases: Array<ITestCaseType>;
     extra: Array<IExtraType>
 }
+
+export interface ITestFilesType {
+    name: string;
+    code: string;
+}
+
+export interface IDashboardType {
+    data: ITypes;
+    test_files: Array<ITestFilesType>;
+}

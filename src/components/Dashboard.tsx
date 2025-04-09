@@ -6,14 +6,14 @@ import {Header} from "@/components/Header.tsx";
 import {Overview} from "@/pages/Overview.tsx";
 import {Endpoints} from "@/pages/Endpoints.tsx";
 import {TestResults} from "@/pages/TestResults.tsx";
-import {ITypes} from "@/Types.tsx";
+import {IDashboardType} from "@/Types.tsx";
 import {ScrollArea, ScrollBar} from "@/components/ui/scroll-area.tsx";
 
 interface ITestTabs {
     value: string;
 }
 
-export const Dashboard: React.FC<ITypes> = (data) => {
+export const Dashboard: React.FC<IDashboardType> = ({data, test_files}) => {
     const [activeTab, setActiveTab] = useState("overview")
 
     const [testTabs, setTestTabs] = useState<Array<ITestTabs>>([]);
@@ -28,13 +28,6 @@ export const Dashboard: React.FC<ITypes> = (data) => {
         }
     }
 
-    // const handleCloseTestsTab = (e: React.MouseEvent) => {
-    //     e.stopPropagation() // Prevent triggering the tab click
-    //     setShowTestsTab(false)
-    //     if (activeTab === "tests") {
-    //         setActiveTab("overview")
-    //     }
-    // }
     const handleCloseTestsTab = (test_name: string) => {
         const updatedTabs = testTabs.filter((t) => t.value !== test_name);
         setTestTabs(updatedTabs);
@@ -79,12 +72,10 @@ export const Dashboard: React.FC<ITypes> = (data) => {
                                             key={index}
                                             className="min-w-[150px] py-3 border border-gray-300 data-[state=active]:bg-orange-50 data-[state=active]:border-2 data-[state=active]:border-black data-[state=active]:shadow-[2px_2px_0px_0px_rgba(0,0,0,0)]"
                                         >
-                                            {/*<div className="flex justify-center w-full">*/}
-                                            {/*    <Badge className={`${getColor(200, "bg")} cursor-default`}>200</Badge>*/}
-                                            {/*</div>*/}
                                             <div className="flex justify-between items-center w-full">
                                                 {test.value}
-                                                <div className="hover:bg-red-300 rounded-2xl" onClick={() => handleCloseTestsTab(test.value)}>
+                                                <div className="hover:bg-red-300 rounded-2xl"
+                                                     onClick={() => handleCloseTestsTab(test.value)}>
                                                     <X size={16}/>
                                                 </div>
                                             </div>
@@ -111,7 +102,11 @@ export const Dashboard: React.FC<ITypes> = (data) => {
                 {
                     testTabs.map((test, index) => (
                         <TabsContent value={`${test.value}`} key={index}>
-                            <TestResults test_case_name={test.value}/>
+                            <TestResults test_case_name={test.value}
+                                         test_cases={data.test_cases}
+                                         found_faults={data.faults.found_faults}
+                                         problem_details={data.problem_details}
+                                         test_files={test_files}/>
                         </TabsContent>
                     ))
                 }

@@ -15,7 +15,7 @@ export const TestCases: React.FC<ITestCaseProps> = ({code, test_cases, addTestTa
     return (
         <>
             <div className="border-t border-black my-2"></div>
-            <div className={`font-bold cursor-default text-lg mb-2 mt-4 ${getColor(code, "text", isFault)}`}>{code}</div>
+            <div className={`font-bold cursor-default text-lg mb-2 mt-4  ${getColor(code, "text", isFault)}`}>{code}</div>
             <Card className="border-2 border-black p-0 rounded-none">
                 <div className="max-h-[300px] overflow-auto">
                     {
