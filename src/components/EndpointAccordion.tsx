@@ -48,7 +48,7 @@ export const EndpointAccordion: React.FC<IEndpointAccordionProps> = ({
                                     setSelectedCode(code.code);
                                     setIsFault(false);
                                 }}
-                                       className={`${getColor(code.code, "bg", false)} hover:bg-green-600 cursor-pointer text-white px-4 py-2 text-base font-bold border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]`}>
+                                       className={`${getColor(code.code, true, false)} hover:bg-green-600 cursor-pointer text-white px-4 py-2 text-base font-bold border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]`}>
                                     {code.code}
                                 </Badge>
                             ))

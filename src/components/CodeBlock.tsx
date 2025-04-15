@@ -3,8 +3,6 @@ import { dracula } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 interface ICodeEditorProps {
     content: string;
-    // start: number;
-    // end: number;
     language: string;
 }
 
@@ -16,7 +14,6 @@ export function CodeBlock({ content, language }: ICodeEditorProps) {
             style={dracula}
             showLineNumbers
             wrapLines
-            // lineProps={(lineNumber) => (lineNumber >= start && lineNumber <= end + 1) ? { style: { backgroundColor: "#EC5228" } } : {}}
         >
             {content}
         </SyntaxHighlighter>

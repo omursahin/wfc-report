@@ -35,7 +35,24 @@ export const TestResults: React.FC<IProps> = ({
     const current_file = test_files.find((file) => file.name === test_case?.file_path);
 
 
-    const extractedCode = current_file && test_case ? extractCodeLines(current_file.code, test_case?.start_line, test_case?.end_line): "";
+    const extractedCode = current_file && test_case ? extractCodeLines(current_file.code, test_case?.start_line, test_case?.end_line) : "";
+
+    const fileExtension = current_file?.name.split('.').pop();
+
+    const getLanguage = (extension: string | undefined) => {
+        switch (extension) {
+            case 'java':
+                return 'java';
+            case 'js':
+                return 'javascript';
+            case 'py':
+                return 'python';
+            case 'ts':
+                return 'typescript';
+            default:
+                return 'plaintext';
+        }
+    }
 
     return (
         <div className="border-2 border-black p-6 rounded-none w-[80%] mx-auto">
@@ -55,7 +72,7 @@ export const TestResults: React.FC<IProps> = ({
                                 unique_status_codes.map((code, i) => (
                                     <Badge
                                         key={i}
-                                        className={`${getColor(code, "bg", false)} cursor-default text-white px-4 py-2 text-base font-bold border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]`}>
+                                        className={`${getColor(code, true, false)} cursor-default text-white px-4 py-2 text-base font-bold border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]`}>
                                         {code}
                                     </Badge>
                                 ))
@@ -90,8 +107,9 @@ export const TestResults: React.FC<IProps> = ({
                 </div>
                 {
 
-                    test_case && current_file && (<pre className="p-4 overflow-auto max-h-[500px] text-sm text-left font-mono">
-                        <CodeBlock content={extractedCode} language="java"/>
+                    test_case && current_file && (
+                        <pre className="p-4 overflow-auto max-h-[500px] text-sm text-left font-mono">
+                        <CodeBlock content={extractedCode} language={getLanguage(fileExtension)}/>
                     </pre>
                     )
                 }

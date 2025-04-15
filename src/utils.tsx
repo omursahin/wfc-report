@@ -1,19 +1,19 @@
-export const getColor = (code: string | number, type: string, isFault: boolean) => {
+export const getColor = (code: string | number, isBackground: boolean, isFault: boolean) => {
     if (isFault) {
-        return `${type}-red-500`
+        return isBackground ? "bg-red-500" : "text-red-500";
     }
     if (typeof code === "number") {
-        return getColorNumber(code, type);
+        return getColorNumber(code, isBackground);
     }
-    return `${type}-red-500`;
+    return isBackground ? "bg-red-500" : "text-red-500";
 }
 
 
-const getColorNumber = (code: number, type: string) => {
-    if (code >= 200 && code < 300) return `${type}-green-500`;
-    if (code >= 300 && code < 400) return `${type}-blue-500`;
-    if (code >= 400 && code < 500) return `${type}-orange-500`;
-    if (code >= 500) return `${type}-red-500`;
+const getColorNumber = (code: number, isBackground: boolean) => {
+    if (code >= 200 && code < 300) return isBackground ? "bg-green-500" : "text-green-500";
+    if (code >= 300 && code < 400) return isBackground ? "bg-blue-500" : "text-blue-500";
+    if (code >= 400 && code < 500) return isBackground ? "bg-orange-500" : "text-orange-500";
+    if (code >= 500) return isBackground ? "bg-red-500" : "text-red-500";
 };
 
 export const fetchFileContent = async (filePath: string): Promise<string | object> => {

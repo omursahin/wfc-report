@@ -20,7 +20,6 @@ export const RestReports: React.FC<IRestType> = ({total_http_calls, covered_http
                 ).flat()
             const uniqueStatusCodes = [...new Set(allStatusCodes)];
 
-            // group by http status codes
             const isContainStatusCode = {
                 "2XX": false,
                 "3XX": false,
@@ -41,7 +40,7 @@ export const RestReports: React.FC<IRestType> = ({total_http_calls, covered_http
                     }
                 }
             )
-            // if the endpoint contains all status codes, increase the count
+
             if (isContainStatusCode["2XX"]) {
                 allStatusCounts["2XX"]++;
             }
